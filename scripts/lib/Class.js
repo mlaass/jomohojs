@@ -67,6 +67,29 @@ define( function(){
 
     // And make this class extendable
     Class.extend = arguments.callee;
+    
+    /**
+     * copies all the members of obj into the class
+     * @param obj the object which holds the variables we want to adapt
+     * @param recoursive true if we want to copy recoursively into Objects. default: false
+     * @param func true if we want to copy functions. default: false
+     */
+    Class.prototype.adapt = function(obj, recursive, func){    	
+    	var adaptAtoB = function(a, b, recursive, func){
+    		for ( var name in b){
+        		if(recursive == true && typeof a[name] === 'object'){ 
+        			b[name]={};
+        			adaptAtoB(a[name], b[name]);
+        		}else if( func === true || typeof a[name] !== 'function' ){
+        			b[name] = a[name];
+        		}       		
+        	}
+    	};
+    	
+    	if(typeof obj === 'object'){
+    		adaptAtoB(obj, this, recursive, func);
+    	}    	    	
+    };
    
     return Class;
   };

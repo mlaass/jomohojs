@@ -52,7 +52,7 @@ define([ './jo', './Surface'],function(jo, Surface){
 		 * @private
 		 */
 		update: function(){
-			this.step();
+			this.draw();
 			
 			if(this.debug){
 				this.ctx.font = '10px monospace';
@@ -68,9 +68,9 @@ define([ './jo', './Surface'],function(jo, Surface){
 			this.time = date.getTime();
 		},
 		/**
-		 * overwrite this, is the first, thats gets run every frame
+		 * overwrite this function and put all your drawing here, it is the first thing, that runs every frame
 		 */
-		step: function(){
+		draw: function(){
 			//overwrite this in your game setup
 			this.clear(this.color(120,120,120));
 		},
