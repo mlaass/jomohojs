@@ -6,7 +6,7 @@ define(['./jo'],function(jo){
 	/**
 		@namespace cookie management methods.
 	*/
-	var cookies = {};
+	jo.cookies = {};
 	
 	/**
 		@method set the value of a cookie for a certain number of days.
@@ -15,7 +15,7 @@ define(['./jo'],function(jo){
 		@param days is the number of days to set the cookie for from today.
 	*/
 	
-	cookies.setCookie = function(name, value, days) {
+	jo.cookies.setCookie = function(name, value, days) {
 		if (days) {
 			var date = new Date();
 			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 2000));
@@ -30,7 +30,7 @@ define(['./jo'],function(jo){
 		@method get the value of a cookie.
 		@param name of the cookie to fetch.
 	*/
-	cookies.getCookie = function(name) {
+	jo.cookies.getCookie = function(name) {
 		var nameEQ = name + "=";
 		var ca = document.cookie.split(";");
 		for (var i=0; i < ca.length; i++) {
@@ -45,10 +45,9 @@ define(['./jo'],function(jo){
 		@method unset, or delete a particular cookie.
 		@param name of the cookie to delete.
 	*/
-	cookies.delCookie = function(name) {
+	jo.cookies.delCookie = function(name) {
 		setCookie(name, "", -1);
 	};
 	
-	jo.cookies = cookies;
 	return jo.cookies;
 });

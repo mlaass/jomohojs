@@ -1,5 +1,5 @@
 
-define([ './jo', './Surface'],function(jo, Surface){
+define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 	/**
 	 * @class The Screen Surface handles screen updating and frame counting
 	 * @augments jo.Surface
@@ -24,18 +24,29 @@ define([ './jo', './Surface'],function(jo, Surface){
 		},
 		/**
 		 * @constructs
-		 * @param width
-		 * @param height
-		 * @param name
-		 * @param fps
-		 * @param fixedTime
+		 * @param options
 		 */
-		init: function (width, height, name, fps, fixedTime){
-			this._super(width, height, name);
-			this.fps = fps;
-			if(typeof (fixedTime) !== 'undefined') {
-				this.fixedTime = fixedTime;
+		init: function (options){
+			
+			this.fullscreen = options.fullscreen | false;
+			
+			var width = options.width | 640, height = options.height | 480;
+			
+			if(this.fullscreen){
+				width = document.width;
+				height = document.height;
 			}
+			this._super(width, height, options.name);
+			
+			if(this.fullscreen){
+				this.canvas.style.position = 'absolute';
+				this.canvas.style.zIndex = 99999;
+				
+			}
+			this.fps = options.fps | 30;
+		
+			this.fixedTime = fixedTime options.fixedTime | true;
+			
 			this.ticks = 1000 / this.fps;
 
 			setInterval(jo.bind(this.update, this), this.ticks);
@@ -52,13 +63,13 @@ define([ './jo', './Surface'],function(jo, Surface){
 		 * @private
 		 */
 		update: function(){
-			this.draw();
+			this._draw();
 			
 			if(this.debug){
 				this.ctx.font = '10px monospace';
 				this.fill = 'white';
 				this.stroke = 0;
-				this.text({x: 5, y: 5}, 'debugmode fps: ' + this.realFps.toFixed(2) + ' ticks: ' + this.realTicks);
+				this.text(null,{x: 5, y: 5}, 'debugmode fps: ' + this.realFps.toFixed(2) + ' ticks: ' + this.realTicks);
 			}	
 			this.frames += 1;
 			this.realTicks = this.time - this.lastTime;
@@ -68,9 +79,17 @@ define([ './jo', './Surface'],function(jo, Surface){
 			this.time = date.getTime();
 		},
 		/**
-		 * overwrite this function and put all your drawing here, it is the first thing, that runs every frame
+		 * pass a function and put all your drawing here, it is the first thing, that runs every frame
 		 */
-		draw: function(){
+		draw: function(fn){
+			if(typeof fn === 'function'){
+				this._draw = fn;
+			}			
+		},
+		/**
+		 * @private
+		 */
+		_draw: function(){
 			//overwrite this in your game setup
 			this.clear(this.color(120,120,120));
 		},
@@ -78,12 +97,13 @@ define([ './jo', './Surface'],function(jo, Surface){
 		 * @private
 		 */
 		calcOffset: function(){
-			this.off.x=0;
-			this.off.y=0;
+			this.offset= new Point();
+			this.offset.x=0;
+			this.offset.y=0;
 			 var el = this.ctx.canvas;
 	            while (el != null) {
-	                this.off.x += el.offsetLeft;
-	                this.off.y += el.offsetTop;
+	                this.offset.x += el.offsetLeft;
+	                this.offset.y += el.offsetTop;
 	                el = el.offsetParent;
 	            }
 		}

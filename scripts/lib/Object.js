@@ -18,22 +18,24 @@ define(['./jo'], function(){
 		objects: {},
 		
 		/**
-		 * constructor
+		 * @constructor
 		 */
-		init : function(){
-			obthis.objects = {};
+		init : function(options){
+			this.options= options;
+			this.objects = [];
 		},
 		draw: function(surface){			
 			for(obj in this.objects){
-				obj.draw(surface);
+				this.objecst[obj].draw(surface);
 			}
 		},
 		update: function(time){
 			for(obj in this.objects){
-				obj.update(time);
+				this.objecst[obj].update(time);
 			}
 		},
-		addObject: function(id, obj){
+		addObject: function(obj, id){
+			id = id | this.objects.length;
 			if(typeof this.objects[id] === 'undefined'){
 				this.objects[id] = obj;
 			}else {
@@ -50,7 +52,7 @@ define(['./jo'], function(){
 	
 	jo.Object.revive = function(key, value){
 		if(typeof value === 'object' && typeof value.joObject === 'string'){
-			var obj = new jo[value.joObject]();
+			var obj = new jo[value.joObject](value.options);
 			obj.adapt(value, true, false);			
 			return obj;
 		}		

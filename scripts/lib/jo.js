@@ -25,6 +25,27 @@ define(['./Class', './Mersenne'],function(Class, Mersenne){
 			}
 		},
 		/**
+		 * 
+		 * @param r
+		 * @param g
+		 * @param b
+		 * @param a
+		 * @returns {String}
+		 */
+		color : function(r, g, b, a){
+			r = Math.floor(r);
+			g = Math.floor(g);
+			b = Math.floor(b);
+			
+
+			if (typeof (a) === 'undefined'){
+				return 'rgb(' + r + ',' + g + ',' + b + ')';
+			} else {
+				a = Math.floor(a);
+				return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+			}
+		},
+		/**
 		 * maps an index of range a to b to an index of x to y
 		 * @param i
 		 * @param a
