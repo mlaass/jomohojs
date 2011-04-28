@@ -9,7 +9,7 @@ define(['./Class', './Mersenne'],function(Class, Mersenne){
 		 * @constant 
 		 * @description version string
 		 */
-		version: '0.1 alpha',
+		version: '0.1',
 		
 		Class: Class,
 		
