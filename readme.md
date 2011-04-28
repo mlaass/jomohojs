@@ -4,7 +4,7 @@ Jomoho JS Game Library
 A JavaScript Library that tries to make it easy and straight forward to develop games for the browser.
 Jomoho comes with the following features:
 
-    *   fFixed or dynamic framerate
+    *   Fixed or dynamic framerate
     *   Easy fullscreen canvas
     *   Drawable Surfaces
     *   Html5 Audio abstraction
