@@ -16,6 +16,4 @@ Jomoho comes with the following features:
     *   Collision detection (rudimentary)
     *   Seedable random number generator using Mersenne Twister Algorithm
     *   Tilemap Classes
-
-    
     

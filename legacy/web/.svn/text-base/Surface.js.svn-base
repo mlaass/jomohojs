@@ -1,0 +1,150 @@
+define([ '../core', '../core/Class', '../Point' ], function(core, Class, Point) {
+
+	var Surface = Class.extend({
+		width : 32,
+		height : 32,
+		fill : 0,
+		stroke : 0,
+		canvas : null,
+		init : function(width, height, name){
+			if(typeof (name) === 'undefined') {
+				name = '';
+			}
+			if(name.substring(0, 1) === '#'){
+				var name = name.substring(1, name.length);
+				this.canvas = document.getElementById(name);
+			} else {
+				this.canvas = document.createElement('canvas');
+				this.canvas.setAttribute('id', name);
+			}
+			if(this.canvas && this.canvas.getContext){
+				this.ctx = this.canvas.getContext('2d');			
+				this.canvas.height = this.height = height;
+				this.canvas.width = this.width = width;
+	
+				this.ctx.font = '10px monospace';
+			}else {				
+				alert('Please use a browser with canvas support');
+			}
+		},
+		font : function(f){
+			this.ctx.font = f;
+		},
+		setPaint : function(){
+			if(this.fill){
+				this.ctx.fillStyle = this.fill;
+			}
+			if(this.stroke){
+				this.ctx.strokeStyle = this.stroke;
+			}
+		},
+		color : function(r, g, b, a){
+			r = Math.floor(r);
+			g = Math.floor(g);
+			b = Math.floor(b);
+
+			if (typeof (a) === 'undefined'){
+
+				return 'rgb(' + r + ',' + g + ',' + b + ')';
+			} else {
+				return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+			}
+		},
+		push : function(){
+			this.ctx.save();
+		},
+		pop : function(){
+			this.ctx.restore();
+		},
+		rotate : function(angle){
+			this.ctx.rotate(angle);
+		},
+		translate : function(p) {
+			this.ctx.translate(p.x, p.y);
+		},
+		clear : function(color){
+			if (typeof color === 'undefined') {
+				this.ctx.clearRect(0, 0, this.width, this.height);
+			} else {
+				this.ctx.background = color;
+				this.ctx.clearRect(0, 0, this.width, this.height);
+			}		
+		},
+		rect : function(p, w, h){
+			if (this.fill) {
+				this.ctx.fillStyle = this.fill;
+				this.ctx.fillRect(p.x, p.y, w, h);
+			}
+			if (this.stroke){
+				this.ctx.strokeStyle = this.stroke;
+				this.ctx.strokeRect(p.x, p.y, w, h);
+			}
+		},
+		circle : function(p, r){
+			this.setPaint();
+			this.ctx.beginPath();
+			this.ctx.arc(p.x, p.y, r, 0, 2 * Math.PI, false);
+			if(this.fill) {
+				this.ctx.fill();
+			}
+			if(this.stroke) {
+				this.ctx.stroke();
+			}
+			this.ctx.closePath();
+
+		},
+		line : function(p1, p2) {
+			this.ctx.strokeStyle = this.stroke;
+			this.ctx.beginPath();
+			this.ctx.moveTo(p1.x, p1.y);
+			this.ctx.lineTo(p2.x, p2.y);
+			this.ctx.closePath();
+			if (this.stroke) {
+				this.ctx.stroke();
+			}
+		},
+		textLength : function(str){
+			return this.ctx.measureText(str).width;
+		},
+		text : function(p, str) {
+			this.ctx.textBaseline = 'top';
+			this.ctx.textAlign = 'start';
+			if(this.fill){
+				this.ctx.fillStyle = this.fill;
+				this.ctx.fillText(str, p.x, p.y);
+			}
+			if(this.stroke){
+				this.ctx.strokeStyle = this.stroke;
+				this.ctx.strokeText(str, p.x, p.y);
+			}
+		},
+		textCenter : function(p, str){
+			this.ctx.textBaseline = 'top';
+			this.ctx.textAlign = 'center';
+			if(this.fill){
+				this.ctx.fillStyle = this.fill;
+				this.ctx.fillText(str, p.x, p.y);
+			}
+			if(this.stroke){
+				this.ctx.strokeStyle = this.stroke;
+				this.ctx.strokeText(str, p.x, p.y);
+			}
+		},
+		draw : function(srf, p) {
+			srf.ctx.drawImage(this.canvas, p.x, p.y);
+		},
+		drawFrame : function(srf, sp, sw, sh, dp, dw, dh) {
+			srf.ctx.drawImage(this.canvas, sp.x, sp.y, sw, sh, dp.x, dp.y, dw, dh);
+		},
+		drawRotate : function(srf, p, angle) {
+			srf.ctx.save();
+			srf.ctx.translate(p.x, p.y);
+			srf.ctx.rotate(angle);
+			srf.ctx.translate(-this.ctx.width / 2, -this.ctx.height / 2);
+			srf.ctx.drawImage(this.canvas, 0, 0);
+			srf.ctx.restore();
+		}
+	});
+
+	return Surface;
+});

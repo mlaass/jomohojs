@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/crystal/!svn/ver/58/trunk/WebContent/discovery/scripts/crystal/dynamics
+END
+Particle.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/crystal/!svn/ver/67/trunk/WebContent/discovery/scripts/crystal/dynamics/Particle.js
+END
+collider.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/crystal/!svn/ver/69/trunk/WebContent/discovery/scripts/crystal/dynamics/collider.js
+END
+RotationParticle.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/crystal/!svn/ver/69/trunk/WebContent/discovery/scripts/crystal/dynamics/RotationParticle.js
+END
+Collision.js
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/crystal/!svn/ver/69/trunk/WebContent/discovery/scripts/crystal/dynamics/Collision.js
+END
+Constraint.js
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/crystal/!svn/ver/64/trunk/WebContent/discovery/scripts/crystal/dynamics/Constraint.js
+END
+StaticConstraint.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/crystal/!svn/ver/64/trunk/WebContent/discovery/scripts/crystal/dynamics/StaticConstraint.js
+END

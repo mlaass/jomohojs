@@ -1,0 +1,17 @@
+/*
+ * TileSet will be used to draw tiles in a TileMap
+ */
+
+define(['./core', 
+        './system', 
+        './Tile'],
+        function(core, sys, Tile){
+	
+	TileSet= Grid.extend({
+		tiles: [],
+		init: function(){
+
+		}
+	});
+	return TileSet;
+});

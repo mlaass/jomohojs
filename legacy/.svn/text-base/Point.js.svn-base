@@ -1,0 +1,105 @@
+/**
+ * The Point class defines a simple 2d vector
+ * with a set of useful functions
+ * there are two kinds of arithmetic functions, the first
+ * which return a new vector are called: sum, dif, mul, div and neg
+ * the second changes the vector its called on and they are called:
+ * add, subtract, multiply, divide and negate
+ */
+define(["./core"],function(core){
+	
+	var Point = function(x, y){
+		this.x=x;
+		this.y=y;
+	};
+	Point.prototype.copy = function(p){
+		this.x=p.x;
+		this.y=p.y;		
+		return this;
+	};
+	Point.prototype.getCopy = function(){
+		return new Point(this.x, this.y);
+	};
+	Point.prototype.equal = function(p){
+		return this.x === p.x && this.y === p.y;	
+	};
+	Point.prototype.fromAngle= function(angle){
+		this.x= Math.cos(angle);
+		this.y=Math.sin(angle);
+		return this;
+	};
+	Point.prototype.toAngle= function(){
+		var angle =Math.atan2(this.y,this.x); //weird weird atan2
+		angle = angle<0? (2*Math.PI)+angle : angle;
+		return angle;
+	};
+	Point.prototype.dot=function(a){
+		return this.x*a.x+ this.y*a.y;
+	};
+	Point.prototype.lengthSqr=function(){
+		return this.x*this.x+this.y*this.y;
+	};
+	Point.prototype.length=function(){
+		return Math.sqrt( this.x*this.x+this.y*this.y);
+	};
+	Point.prototype.normalize=function(){
+		return this.multiply(this.length());
+	};
+	Point.prototype.normal=function(){
+		return this.mul(this.length());
+	};
+	Point.prototype.leftNormal= function(){
+		return new Point(-this.y, this.x);
+	};
+	Point.prototype.rightNormal= function(){
+		return new Point(this.y, -this.x);
+	};
+	//returns sum of two vectors
+	Point.prototype.sum= function(p){
+		return new Point(this.x+p.x, this.y+p.y);
+	};
+	//returns vector difference
+	Point.prototype.dif= function(p){
+		return new Point(this.x-p.x, this.y-p.y);
+	};
+	//returns vector multiplied by scalar
+	Point.prototype.mul= function(a){
+		return new Point(this.x*a, this.y*a);
+	};
+	//return vector divided by scalar
+	Point.prototype.div= function(a){
+		return new Point(this.x/a, this.y/a);
+	};
+	//returns inverted vector
+	Point.prototype.neg= function(p){
+		return new Point(this.x*-1, this.y*-1);
+	};
+	
+
+	Point.prototype.add=function(p){
+		this.x+=p.x;
+		this.y+=p.y;
+		return this;
+	};
+	Point.prototype.subtract=function(p){
+		this.x-=p.x;
+		this.y-=p.y;
+		return this;
+	};
+	Point.prototype.multiply=function(a){
+		this.x*=a;
+		this.y*=a;
+		return this;
+	};
+	Point.prototype.divide=function(a){
+		this.x/=a;
+		this.y/=a;
+		return this;
+	};
+	Point.prototype.negate=function(){
+		this.x*=-1;
+		this.y*=-1;
+		return this;
+	};	
+	return Point;
+});

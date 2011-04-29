@@ -1,0 +1,77 @@
+/**
+ * the screen interface
+ * handles frames and timing
+ * 
+ */
+
+define(['../core', './Surface'],function(core, Surface){
+	var debug = false;
+	var Screen =  Surface.extend({	
+		frames: 0,
+		debug: $crystal.debug,
+		fps: 60,
+		ticks: 1000/30,
+		realFps: 30,
+		realTicks: 1000/30,
+		time: 1000/30,
+		fixedTime: true,
+		lastTime:0,
+		off: {x: 0, y: 0},
+		update: function(){
+			this.step();
+			if(this.debug){
+				this.ctx.font = '10px monospace';
+				this.fill = 'white';
+				this.stroke = 0;
+				this.text({x: 5, y: 5}, 'debugmode fps: ' + this.realFps.toFixed(2) + ' ticks: ' + this.realTicks);
+			}	
+			this.frames += 1;
+			this.realTicks = this.time - this.lastTime;
+			this.realFps = this.realFps / 2 + (500 / this.realTicks);
+			var date = new Date();
+			this.lastTime = this.time;
+			this.time = date.getTime();
+			if (0 === this.frames % (this.fps && debug)) {
+				core.log('FPS: ' + this.realFps);
+			}
+		},		
+		step: function(){
+			//overwrite this in your game setup
+			this.clear(this.color(120,120,120));
+			var s =	'error in game setup, could not overwrite sys.screen.step';
+			this.fill = this.color(200,0,0);  
+			var tl = this.textLength(s);
+			this.text({x: this.width/2 -tl/2, y: -50+ this.frames%(this.height)}, s); 
+			
+		},	
+		init: function (width, height, name, fps, fixedTime){
+			this._super(width, height, name);
+			this.fps=fps;
+			if(typeof(fixedTime)!== 'undefined'){					
+				this.fixedTime=fixedTime;
+			}
+			this.ticks= 1000/this.fps;
+		
+			setInterval(core.bind(this.update, this), this.ticks);
+		
+			this.ctx.font='10px monospace';
+			
+			//calculate the offset for the mouse
+			this.calcOffset();
+			core.log('canvas done');
+
+		},
+		calcOffset: function(){
+			this.off.x=0;
+			this.off.y=0;
+			 var el = this.ctx.canvas;
+	            while (el != null) {
+	                this.off.x += el.offsetLeft;
+	                this.off.y += el.offsetTop;
+	                el = el.offsetParent;
+	            }
+		}
+	});
+		
+	return Screen;
+});
