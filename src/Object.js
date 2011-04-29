@@ -1,8 +1,8 @@
 
 
-define(['./jo'], function(){
+define(['./jo', './Class'], function(jo, Class){
 	
-	jo.Object = jo.Object.extend(
+	jo.Object = jo.Class.extend(
 		/**
 		 * @lends jo.Object.prototype
 		 */	
@@ -24,7 +24,8 @@ define(['./jo'], function(){
 			this.options= options;
 			this.objects = [];
 		},
-		draw: function(surface){			
+		draw: function(surface){
+			surface.clear();
 			for(obj in this.objects){
 				this.objecst[obj].draw(surface);
 			}

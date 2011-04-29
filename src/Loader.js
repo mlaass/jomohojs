@@ -41,8 +41,9 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 			for ( var i = 0; i < this.files.length; i++) {
 				var src = this.files[i];
 				var type = src.substring(0, src.indexOf('/'));
-				src = this.folder + '/' + src;
-				
+				if(typeof (folder) !== 'undefined'){
+					src = this.folder + '/' + src;
+				}				
 				if (type === 'sfx') {
 					this.loadSfx(src);
 				} else if (type === 'music') {

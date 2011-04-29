@@ -4,13 +4,46 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 	 * @class The Screen Surface handles screen updating and frame counting
 	 * @augments jo.Surface
 	 */
+	
+	var viewport = function(){
+		var viewportwidth;
+		var viewportheight;
+		
+		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+		
+		if (typeof window.innerWidth != 'undefined')
+		{
+		     viewportwidth = window.innerWidth,
+		     viewportheight = window.innerHeight
+		}
+		
+	       // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+	       
+		else if (typeof document.documentElement != 'undefined'
+		    && typeof document.documentElement.clientWidth !=
+		    'undefined' && document.documentElement.clientWidth != 0)
+		{
+		      viewportwidth = document.documentElement.clientWidth,
+		      viewportheight = document.documentElement.clientHeight
+		}
+		
+		// older versions of IE
+		
+		else
+		{
+		      viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
+		      viewportheight = document.getElementsByTagName('body')[0].clientHeight
+		}
+		return {width: viewportwidth, height: viewportheight}
+	
+	}
 	jo.Screen =  Surface.extend(
 		/**
 		 * @lends jo.Screen.prototype
 		 */	
 		{
 		frames : 0,
-		debug : $crystal.debug,
+		debug : jo.debug,
 		fps : 60,
 		ticks : 1000 / 30,
 		realFps : 30,
@@ -33,8 +66,9 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 			var width = options.width | 640, height = options.height | 480;
 			
 			if(this.fullscreen){
-				width = document.width;
-				height = document.height;
+				var view = viewport();
+				width = view.width;
+				height = view.height;
 			}
 			this._super(width, height, options.name);
 			
@@ -45,7 +79,7 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 			}
 			this.fps = options.fps | 30;
 		
-			this.fixedTime = fixedTime options.fixedTime | true;
+			this.fixedTime = options.fixedTime | true;
 			
 			this.ticks = 1000 / this.fps;
 

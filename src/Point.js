@@ -185,9 +185,14 @@ define([ './jo', './Class' ], function(jo, Class) {
 		 * @returns {this}
 		 */
 		add : function(p) {
-			this.x += p.x;
-			this.y += p.y;
-			return this;
+			if(p.x && p.y){
+				this.x += p.x;
+				this.y += p.y;
+				return this;
+			}else{
+				return this;
+			}
+
 		},
 		/**
 		 * @methodOf jo.Point
@@ -233,5 +238,6 @@ define([ './jo', './Class' ], function(jo, Class) {
 			return this;
 		}
 	});
+	jo.pzero = function(){ return new jo.Point(0,0);};
 	return jo.Point;
 });

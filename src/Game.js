@@ -1,20 +1,15 @@
 
 
 define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Object, Screen, input, Loader){
-	
-	var exec = function(fn){
-		if(typeof fn === 'function'){
-			setTimeout(0, fn);
-		}
-	};
-	jo.Game = Object.extend({		
+
+	jo.Game = jo.Object.extend({		
 		init: function(options){
 			this._super(options);
 			
-			jo.screen = new Screen(options);
+			jo.screen = new jo.Screen(options);
 			input.setup();
-			jo.files = new Loader();
-			jo.files.folder= '/';
+			jo.files = new jo.Loader();
+			//jo.files.folder= '/';
 			jo.game = this;
 		},
 		loading: function(){
@@ -26,18 +21,21 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 						{x: jo.screen.width/4, y: jo.screen.height/2 -20},
 						jo.mapto(jo.files.progress, 0, 1, 0, jo.screen.width/2), 40 );
 			
+			jo.screen.text({align: 'center', fill: jo.clr.black, stroke: 0},
+				       new jo.Point(jo.screen.width/2, jo.screen.height/2), 'Loading...');
+
 			if(jo.files.progress >= 1){
-				exec(this._ready);
-				screen.draw(core.bind(this.loop, this));
+				jo.screen.draw(jo.bind(this.loop, this));
+				this._ready();
 			}			
 		},
 		setup: function(fn){
 			this._setup = fn;
-			exec(fn);
+			return fn();
 		},
 		load: function(files, folder){
 			jo.files.load(files, folder);
-			jo.screen.draw(core.bind(this.loading, this));
+			jo.screen.draw(jo.bind(this.loading, this));
 		},
 		ready: function(fn){
 			this._ready = fn;

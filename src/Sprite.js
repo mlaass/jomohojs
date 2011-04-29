@@ -62,9 +62,9 @@ define([ './jo', './Point' ], function(jo, Point) {
 			surface.ctx.translate(position.x, position.y);
 			
 			var srcW = width = this.width, 
-				srcH = height = this.height,
-				x = 0, 
-				y = 0;
+			srcH = height = this.height,
+			x = 0, 
+			y = 0;
 
 			if(typeof options === 'object'){
 				if(typeof options.angle !== 'undefined'){
@@ -110,5 +110,5 @@ define([ './jo', './Point' ], function(jo, Point) {
 		}
 	});
 
-	return Sprite;
+	return jo.Sprite;
 });
