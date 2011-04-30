@@ -8,8 +8,7 @@ define(['./jo', './Point'], function(jo, Point){
 				this.radius = radius;
 			},
 			Box: function(topleft, width, height){
-				this.x = topleft.x;
-				this.y = topleft.y;
+				this.pos.copy(topleft);
 				this.width = width;
 				this.height = height;
 			},
@@ -36,15 +35,33 @@ define(['./jo', './Point'], function(jo, Point){
 					return Math.pow(point.x-circle.x, 2)+Math.pow(point.y-circle.y, 2) <= Math.pow(circle.radius,2);
 				},
 				boxBox: function(a, b){
-					var a_right = a.x + a.width,
-						a_bottom = a.y + a.height,
-						b_right = b2.x + b2.width,
-						b_bottom = b2.y + b2.height;
+					var a_right = a.pos.x + a.width,
+						a_bottom = a.pos.y + a.height,
+						b_right = b.pos.x + b.width,
+						b_bottom = b.pos.y + b.height;
 					
-					if(a_right > b2.x || b_right < a.x)
+					if(a_right < b.pos.x || b_right < a.pos.x)
 						return false;
-					if(a_bottom < b2.y || b_bottom < a.y)
+					if(a_bottom < b.pos.y || b_bottom < a.pos.y)
 						return false;
+					
+					
+					if( a.posx > p.x && a.pos.x < p.x+w){ 		//vertical voronois
+						
+						if(a.pos.y < p.y ){					//above
+							return a.pos.y+r >= p.y? {dir: 'top', depth: a.pos.y+r - p.y}: false;
+						}else if(a.pos.y > p.y+h ){			//below
+							return a.pos.y-r <= p.y+h? {dir: 'bottom',depth:(p.y+h)- (a.pos.y-r)} : false;
+						}
+					}else if( a.pos.y > p.y && a.pos.y < p.y+h){//horizontal voronois
+						
+						if(a.pos.x < p.x ){					//left
+							return a.pos.x >= p.x? {dir:'left',depth: a.pos.x+r - p.x} : false;;
+						}else if(a.pos.x > p.x+w ){			//right
+							return a_right <= p.x+w? {dir:'right',depth:(p.x+w) - (a.pos.x-r)} : false;;
+						}
+						
+					}
 					
 					return true;
 				},
@@ -60,9 +77,10 @@ define(['./jo', './Point'], function(jo, Point){
 				polygonCircle: function(polygon, circle){
 					
 				},
+				/**todo*/
 				boxPolygon: function(box, polygon){
 					return jo.math2d.intersect.polygonPolygon(
-							[new Point(box.x, box.y),
+							[new Point(box.pos.x, box.y),
 					         new Point(box.x + box.width, box.y),
 					         new Point(box.x + box.width, box.y + box.height) ,
 					         new Point(box.x, box.y + box.height)], polygon);
@@ -78,5 +96,5 @@ define(['./jo', './Point'], function(jo, Point){
 			}
 	};
 	
-	return return jo.math2d;
+	return jo.math2d;
 });

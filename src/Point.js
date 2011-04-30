@@ -185,7 +185,7 @@ define([ './jo', './Class' ], function(jo, Class) {
 		 * @returns {this}
 		 */
 		add : function(p) {
-			if(p.x && p.y){
+			if(p && p.x && p.y){
 				this.x += p.x;
 				this.y += p.y;
 				return this;

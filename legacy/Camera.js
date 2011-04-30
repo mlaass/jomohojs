@@ -4,11 +4,9 @@
  */
 
 
-define(['./core', 
-        './system', 
+define(['./jo', 
         './Point'], 
-        function(core, 
-        		sys, 
+        function(jo, 
         		Point){
 
 	var Camera = Point.extend({

@@ -2,7 +2,7 @@
  * Grid holds arbitrary data in a 2d grid
  */
 
-define([ './jo', './system' ], function(jo, sys) {
+define([ './jo'], function(jo) {
 
 	var Grid = jo.Class.extend({
 		init : function(width, height) {

@@ -25,25 +25,24 @@ define(['./jo', './Class'], function(jo, Class){
 			this.objects = [];
 		},
 		draw: function(surface){
-			surface.clear();
 			for(obj in this.objects){
-				this.objecst[obj].draw(surface);
+				this.objects[obj].draw(surface);
 			}
 		},
 		update: function(time){
 			for(obj in this.objects){
-				this.objecst[obj].update(time);
+				this.objects[obj].update(time);
 			}
 		},
-		addObject: function(obj, id){
-			id = id | this.objects.length;
+		add: function(obj, id){
+			id = typeof id === 'undefined'? this.objects.length: id+'';
 			if(typeof this.objects[id] === 'undefined'){
 				this.objects[id] = obj;
 			}else {
 				this.objects[id].addObject(id, obj);
 			}
 		},
-		getObject: function(id){
+		get: function(id){
 			return this.objects[id];
 		},
 		removeObject: function(id){

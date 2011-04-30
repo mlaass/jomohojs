@@ -4,20 +4,25 @@
  */
 
 
-define(['./system', 
-        './Point'], 
-        function(sys, 
+define(['./jo','./Point'], 
+        function(jo, 
         		Point){
 
-	var Camera = Point.extend({
+	jo.Camera = Point.extend({
 		init: function(){
 			this._super(0,0);
 		},
-		toScreenPos: function(p){
-			return p.dif(this);
+		toScreen: function(p){
+			if(typeof p =='undefined'){
+				return this.neg();
+			}
+			return p.minus(this);
 		},
-		toWorldPos: function(p){
-			return p.sum(this);
+		toWorld: function(p){
+			if(typeof p =='undefined'){
+				return this;
+			}
+			return p.plus(this);
 		},
 		parrallax: function(val, width, height){
 			var para = this.mul(val);
@@ -26,5 +31,5 @@ define(['./system',
 			return para.negate();
 		}
 	});
-	return Camera;
+	return jo.Camera;
 });

@@ -8,6 +8,12 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 			
 			jo.screen = new jo.Screen(options);
 			input.setup();
+			input.reserved = [	input.MOUSE1,
+								input.MOUSE2,
+								input.UP,
+								input.DOWN,
+								input.LEFT,
+								input.RIGHT];
 			jo.files = new jo.Loader();
 			//jo.files.folder= '/';
 			jo.game = this;
@@ -46,11 +52,12 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 		},
 		update: function(t){
 			this._super(t);
+			jo.input.update();
 			this._update(t);
 		},
 		draw: function(){
-			this._super(jo.screen);
 			this._draw();
+			this._super(jo.screen);
 		},
 		OnUpdate: function(fn){
 			this._update = fn;

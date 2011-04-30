@@ -1,4 +1,4 @@
-define(['./jo', './system'],function(jo, sys){
+define(['./jo'], function(jo){
 	/**
 	 * @class defines an animation, needs a sprite as frame set,
 	 * 			define the frames' index and length in milliseconds and call run every frame.
@@ -35,12 +35,11 @@ define(['./jo', './system'],function(jo, sys){
 		 */
 		readFrames: function(frames){
 			if(typeof frames === 'undefined'){
-				frames =[100];
+				frames = [100];
 			}
 			if(typeof frames.length !== 'undefined'){
 				for(var i=0; i< frames.length; i++){
-					frames[i] = typeof frames[i] === 'object'? 
-							frames[i] : {i: i, t: frames[i]};
+					frames[i] = typeof frames[i] === 'object'? frames[i] : {i: i, t: frames[i]};
 							
 					frames[i].drawFrame = this.getDrawFrame(frames[i].i);
 					
@@ -93,14 +92,14 @@ define(['./jo', './system'],function(jo, sys){
 		 * @see jo.Sprite.draw
 		 */
 		getDrawFrame: function(frame){
-			var cols = this.sprite.width / this.width;
+			var cols = Math.floor(this.sprite.width / this.width);
 			return {
-				x: this.xoff + (frame % cols) * this.width,
+				x: this.xoff + ((frame % cols)) * this.width,
 				y: this.yoff + Math.floor(frame / cols) * this.height, 
 				width: this.width, 
 				height: this.height				
 			};
 		}
 	});
-	return $crystal.Animation;
+	return jo.Animation;
 });

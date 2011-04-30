@@ -14,7 +14,7 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 		if (typeof window.innerWidth != 'undefined')
 		{
 		     viewportwidth = window.innerWidth,
-		     viewportheight = window.innerHeight
+		     viewportheight = window.innerHeight;
 		}
 		
 	       // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
@@ -24,7 +24,7 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 		    'undefined' && document.documentElement.clientWidth != 0)
 		{
 		      viewportwidth = document.documentElement.clientWidth,
-		      viewportheight = document.documentElement.clientHeight
+		      viewportheight = document.documentElement.clientHeight;
 		}
 		
 		// older versions of IE
@@ -32,11 +32,11 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 		else
 		{
 		      viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
-		      viewportheight = document.getElementsByTagName('body')[0].clientHeight
+		      viewportheight = document.getElementsByTagName('body')[0].clientHeight;
 		}
-		return {width: viewportwidth, height: viewportheight}
+		return {width: viewportwidth, height: viewportheight};
 	
-	}
+	};
 	jo.Screen =  Surface.extend(
 		/**
 		 * @lends jo.Screen.prototype

@@ -1,8 +1,9 @@
 
-define(['./jo', 
+define(['./jo',
+        './Class',
         './Tile',
         './Animation'],
-        function(jo, Tile, Animation){
+        function(jo, Class, Tile, Animation){
 	/**
 	 * @class takes care of Tiles, they can be single frames or looping animations
 	 */
@@ -75,5 +76,5 @@ define(['./jo',
 			this.tiles[options.tile].draw(options, position, surface);
 		}
 	});
-	return TileSet;
+	return jo.TileSet;
 });

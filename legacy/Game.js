@@ -1,14 +1,11 @@
 /**
  * The Game as the name implies brings together the actual game
  *  it loads the game assets and delivers a loading screen
- *  and hooks into system.screen to handle drawing and timing
  */
 
-define(['./core', 
-        './system',
+define(['./core',
         './Point'],
-        function(core, 
-        		sys, 
+        function(core,
         		Point){
 	
 	var screen= sys.screen, input= sys.input, res= sys.resources;
