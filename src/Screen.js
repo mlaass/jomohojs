@@ -37,6 +37,7 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 		return {width: viewportwidth, height: viewportheight};
 	
 	};
+
 	jo.Screen =  Surface.extend(
 		/**
 		 * @lends jo.Screen.prototype
@@ -63,14 +64,12 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 			
 			this.fullscreen = options.fullscreen | false;
 			
-			var width = options.width | 640, height = options.height | 480;
+			this.width = options.width | 640;
+			this.height = options.height | 480;
 			
-			if(this.fullscreen){
-				var view = viewport();
-				width = view.width;
-				height = view.height;
-			}
-			this._super(width, height, options.name);
+			
+			this._super(this.width, this.height, options.name);
+			this.checkfull();
 			
 			if(this.fullscreen){
 				this.canvas.style.position = 'absolute';
@@ -92,13 +91,24 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 			jo.log('screen done');
 
 		},
+		checkfull: function(){
+			if(this.fullscreen){
+				var view = viewport();
+
+				if(this.width !== view.width || this.height!==view.height){
+					this.canvas.height = this.height = view.height;
+					this.canvas.width = this.width = view.width;
+				}
+				
+			}
+		},
 		/**
 		 * This gets repeated throughout the game
 		 * @private
 		 */
 		update: function(){
 			this._draw();
-			
+			this.checkfull();
 			if(this.debug){
 				this.ctx.font = '10px monospace';
 				this.fill = 'white';

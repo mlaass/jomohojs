@@ -84,6 +84,7 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 				anim : this.tileSet.tiles[this.get(x, y).index]
 			};
 		},
+		
 		getIntersection: function(frame){
 			var inter = [];
 			var con = this.convertFrame(frame);

@@ -24,6 +24,16 @@ define(['./jo','./Point'],
 			}
 			return p.plus(this);
 		},
+
+		toMap: function(p){
+			if(typeof p =='undefined'){
+				return this;
+			}
+			var x= this.toWorld(p);
+			x.x/=jo.game.map.tileSet.width;
+			x.y/=jo.game.map.tileSet.height;
+			return x.floor();
+		},
 		parrallax: function(val, width, height){
 			var para = this.mul(val);
 			para.x = para.x % width;

@@ -236,6 +236,11 @@ define([ './jo', './Class' ], function(jo, Class) {
 			this.x *= -1;
 			this.y *= -1;
 			return this;
+		},
+		floor: function(){
+			this.x= Math.floor(this.x);
+			this.y= Math.floor(this.y);
+			return this;
 		}
 	});
 	jo.pzero = function(){ return new jo.Point(0,0);};

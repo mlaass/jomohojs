@@ -8,8 +8,8 @@ define(['./jo', './Point'], function(jo, Point){
 	jo.input = {
 		'MOUSE1': 260,
 		'MOUSE2': 261,
-		'MWHEEL_UP': 262,
-		'MWHEEL_DOWN': 263,
+		'WHEEL_UP': 262,
+		'WHEEL_DOWN': 263,
 		'BACKSPACE': 8,
 		'TAB': 9,
 		'ENTER': 13,
@@ -178,7 +178,7 @@ define(['./jo', './Point'], function(jo, Point){
 			return this.mouse.minus(this.lastMouse);
 		},
         mouseWheel: function (event) {
-            var code = event.wheel > 0 ? this.MWHEEL_UP : this.MWHEEL_DOWN;
+            var code = event.wheel > 0 ? this.WHEEL_UP : this.WHEEL_DOWN;
 			if(jo.includes(this.reserved, code)){
 				event.preventDefault();
 			}

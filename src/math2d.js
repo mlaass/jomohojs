@@ -46,24 +46,24 @@ define(['./jo', './Point'], function(jo, Point){
 						return false;
 					
 					
-					if( a.posx > p.x && a.pos.x < p.x+w){ 		//vertical voronois
-						
-						if(a.pos.y < p.y ){					//above
-							return a.pos.y+r >= p.y? {dir: 'top', depth: a.pos.y+r - p.y}: false;
-						}else if(a.pos.y > p.y+h ){			//below
-							return a.pos.y-r <= p.y+h? {dir: 'bottom',depth:(p.y+h)- (a.pos.y-r)} : false;
-						}
-					}else if( a.pos.y > p.y && a.pos.y < p.y+h){//horizontal voronois
-						
-						if(a.pos.x < p.x ){					//left
-							return a.pos.x >= p.x? {dir:'left',depth: a.pos.x+r - p.x} : false;;
-						}else if(a.pos.x > p.x+w ){			//right
-							return a_right <= p.x+w? {dir:'right',depth:(p.x+w) - (a.pos.x-r)} : false;;
-						}
-						
-					}
 					
+					if( a.pos.x > b.pos.x && a.pos.x < b_right){ 		//vertical voronois
+						
+						if(a.pos.y < b.pos.y ){					//above
+							return {dir: 'top', depth: a_bottom - b.pos.y};
+						}else if(a.pos.y > b_bottom ){			//below
+							return {dir: 'bottom', depth:(b_bottom)- (a.pos.y)};
+						}
+					}else if( a.pos.y > b.pos.y && a.pos.y < b_bottom){//horizontal voronois
+						
+						if(a_right < b.pos.x ){					//left
+							return {dir:'left',depth: a_right - b.pos.x};
+						}else if(a.pos.x > b_right ){			//right
+							return {dir:'right',depth:(b_right) - (a.pos.x)};
+						}						
+					}
 					return true;
+					
 				},
 				lineLine: function(line1, line2){
 					
