@@ -1,6 +1,6 @@
 
 
-define(['./jo', './Class'], function(jo, Class){
+define(['./jo', './Class', '../lib/JSON/json2'], function(jo, Class, json2){
 	
 	jo.Object = jo.Class.extend(
 		/**
@@ -23,6 +23,7 @@ define(['./jo', './Class'], function(jo, Class){
 		init : function(options){
 			this.options= options;
 			this.objects = [];
+			this.joObject= this.joObject;
 		},
 		draw: function(surface){
 			for(obj in this.objects){
@@ -47,15 +48,31 @@ define(['./jo', './Class'], function(jo, Class){
 		},
 		removeObject: function(id){
 			delete this.objects[id];
-		}		
+		},
+		stringify: function(){
+			return JSON.stringify(this, jo.Object.replacer);
+		}
+
 	});
-	
+	jo.Object.replacer = function(key, value) {
+	    if(key === 'objects'){
+	    	return  '';
+	    }
+	    
+	    return value;
+	};
 	jo.Object.revive = function(key, value){
-		if(typeof value === 'object' && typeof value.joObject === 'string'){
+		if(typeof value !== 'undefined' && typeof value.joObject !== 'undefined'){
 			var obj = new jo[value.joObject](value.options);
-			obj.adapt(value, true, false);			
+			value = obj;//.adapt(value, true, false);			
 			return obj;
-		}		
+		}
+		if(typeof value!== 'undefined'){
+	    	if(value.isPoint){
+	    		return (new jo.Point().copy(value));
+	    	}
+	    	
+	    }
 		return value;
 	};
 	jo.Object.parse = function(text){

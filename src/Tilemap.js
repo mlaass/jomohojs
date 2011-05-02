@@ -45,19 +45,21 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			var tw = this.tileSet.width,
 				th = this.tileSet.height;
 			
-			var frame = {x: 0, y: 0, width: surface.width, height: surface.height};
+			var frame = {x: jo.game.cam.x, y: jo.game.cam.y, width: surface.width, height: surface.height};
 			if(typeof options.frame !== 'undefined'){
 				frame = options.frame;
 			}
 			
 			var con = this.convertFrame(frame);
+			
 			for ( var i = con.x; i < con.x + con.width; i++) {
 				for ( var j = con.y; j < con.y + con.height; j++) {
 					var index = this.get(i, j).index;
 					if(index >= 0){
 						var pos = new Point(i * tw, j * th);
-						pos = pos.add(position).subtract(frame);
-						this.tileSet.draw({tile: index}, pos, surface);	
+						pos = pos.add(position);
+						var p = jo.game.cam.toScreen(pos);
+						this.tileSet.draw({tile: index}, p, surface);	
 					}
 				}
 			}
@@ -83,6 +85,9 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 				index : this.get(x, y).index,
 				anim : this.tileSet.tiles[this.get(x, y).index]
 			};
+		},
+		getFrame: function(){
+			return {x: 0, y: 0, width: this.width*this.tileSet.width, height: this.height*this.tileSet.height};
 		},
 		
 		getIntersection: function(frame){

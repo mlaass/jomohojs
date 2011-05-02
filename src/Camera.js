@@ -27,12 +27,12 @@ define(['./jo','./Point'],
 
 		toMap: function(p){
 			if(typeof p =='undefined'){
-				return this;
+				return null;
 			}
-			var x= this.toWorld(p);
-			x.x/=jo.game.map.tileSet.width;
-			x.y/=jo.game.map.tileSet.height;
-			return x.floor();
+			var p= this.toWorld(p);
+			p.x/=jo.game.map.tileSet.width;
+			p.y/=jo.game.map.tileSet.height;
+			return p.floor();
 		},
 		parrallax: function(val, width, height){
 			var para = this.mul(val);

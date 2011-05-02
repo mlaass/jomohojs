@@ -19,6 +19,7 @@ define([ './jo', './Class' ], function(jo, Class) {
 		init : function(x, y) {
 			this.x = x;
 			this.y = y;
+			this.isPoint=true;
 		},
 		/**
 		 * @methodOf jo.Point

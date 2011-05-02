@@ -53,7 +53,7 @@ define(['./jo'], function(jo){
 		 */
 		update: function(ticks){
 			if(this.start === true ){
-				if(typeof this.startCallback() === 'function'){
+				if(typeof this.startCallback === 'function'){
 					this.startCallback(this);
 				}
 				this.frame = this.frame % this.frames.length;
@@ -65,7 +65,7 @@ define(['./jo'], function(jo){
 			}
 			
 			if(this.frame >= this.frames.length ){
-				if(typeof this.finishCallback() === 'function'){
+				if(typeof this.finishCallback === 'function'){
 					this.finishCallback(this);
 				}
 				this.start = true;

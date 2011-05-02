@@ -112,6 +112,7 @@ define(['./Class', './Mersenne'],function(Class, Mersenne){
 			}
 			return false;		
 		},
+		
 		clr: {
 			white: 'rgb(255,255,255)',
 			red: 'rgb(255,0,0)',

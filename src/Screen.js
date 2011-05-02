@@ -73,7 +73,7 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 			
 			if(this.fullscreen){
 				this.canvas.style.position = 'absolute';
-				this.canvas.style.zIndex = 99999;
+				this.canvas.style.zIndex = 1;
 				
 			}
 			this.fps = options.fps | 30;
