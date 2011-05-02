@@ -1,6 +1,6 @@
 
 
-define(['./jo', './Class', '../lib/JSON/json2'], function(jo, Class, json2){
+define(['./jo', './Class' ], function(jo, Class){
 	
 	jo.Object = jo.Class.extend(
 		/**

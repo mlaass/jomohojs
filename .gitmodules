@@ -1,6 +1,3 @@
 [submodule "lib/requirejs"]
 	path = lib/requirejs
 	url = http://github.com/jrburke/requirejs
-[submodule "lib/JSON"]
-	path = lib/JSON
-	url = http://github.com/douglascrockford/JSON-js
