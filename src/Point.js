@@ -186,14 +186,9 @@ define([ './jo', './Class' ], function(jo, Class) {
 		 * @returns {this}
 		 */
 		add : function(p) {
-			if(p && p.x && p.y){
-				this.x += p.x;
-				this.y += p.y;
-				return this;
-			}else{
-				return this;
-			}
-
+			this.x += p.x;
+			this.y += p.y;
+			return this;	
 		},
 		/**
 		 * @methodOf jo.Point

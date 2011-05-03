@@ -112,6 +112,13 @@ define(['./Class', './Mersenne'],function(Class, Mersenne){
 			}
 			return false;		
 		},
+		incl: function(set, element) {
+			var r = set.length>0;
+			for ( var i in element) {
+				r = r && this.includes(set, element[i]);
+			}
+			return r;		
+		},
 		
 		clr: {
 			white: 'rgb(255,255,255)',

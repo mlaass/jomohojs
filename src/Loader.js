@@ -105,6 +105,8 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 				this.sfx[name].load();
 				this.sfx[name].name = name;
 				this.sfx[name].addEventListener('canplaythrough', jo.bind(this.onLoad, this), true);
+				
+				this.sfx[name].volume=0.8;
 				this.sfx[name].looping = function(loop) {
 					if (loop) {
 						this.addEventListener('ended', function() {
@@ -115,6 +117,21 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 						}, false);
 					}
 				};
+				this.sfx.setVolume=function(v){
+					for(i in this){
+						if(typeof this[i].volume !== 'undefined'){
+							this[i].volume =v;
+						}
+					}
+				};
+				this.sfx.mute= function(){
+					this.setVolume(0);
+					
+				};
+				this.sfx.unMute= function(){
+					this.setVolume(0.8);
+				};
+				
 			}
 		},
 		/**
@@ -147,6 +164,19 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 				};
 				this.music[name].volume = 0.3;
 				this.music[name].looping(true);
+				this.music.setVolume=function(v){
+					for(i in this){
+						if(typeof this[i].volume !== 'undefined'){
+							this[i].volume =v;
+						}
+					}
+				};
+				this.music.mute= function(){
+					this.setVolume(0);
+				};
+				this.music.unMute= function(){
+					this.setVolume(0.3);
+				};
 			}
 		},
 		/**
@@ -158,6 +188,15 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 			this.loaded += 1;
 			this.progress = jo.mapto(this.loaded, 0, this.fileCount, 0, 1);
 			jo.log(event.target.name + ' ..loaded  ' + this.loaded + ' / ' + this.fileCount);
+		},
+		
+		mute: function(){
+			this.music.setVolume(0);
+			this.sfx.setVolume(0);
+		},
+		unMute: function(){
+			this.music.setVolume(0.3);
+			this.sfx.setVolume(0.8);
 		}
 	});
 	return jo.Loader;

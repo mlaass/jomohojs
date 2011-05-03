@@ -52,11 +52,11 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			
 			var con = this.convertFrame(frame);
 			
-			for ( var i = con.x; i < con.x + con.width; i++) {
-				for ( var j = con.y; j < con.y + con.height; j++) {
-					var index = this.get(i, j).index;
+			for(var i = con.y; i < con.y + con.height; i++) {
+				for(var j = con.x; j < con.x + con.width; j++) {
+					var index = this.get(j, i).index;
 					if(index >= 0){
-						var pos = new Point(i * tw, j * th);
+						var pos = new Point(j * tw, i * th);
 						pos = pos.add(position);
 						var p = jo.game.cam.toScreen(pos);
 						this.tileSet.draw({tile: index}, p, surface);	
@@ -93,9 +93,9 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 		getIntersection: function(frame){
 			var inter = [];
 			var con = this.convertFrame(frame);
-			for ( var i = con.x; i < con.x + con.width; i++) {
-				for ( var j = con.y; j < con.y + con.height; j++) {
-					inter.push(this.getTile(i, j));
+			for ( var i = con.y; i < con.y + con.height; i++) {
+				for ( var j = con.x; j < con.x + con.width; j++) {
+					inter.push(this.getTile(j, i));
 				}
 			}
 			return inter;
