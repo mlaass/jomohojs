@@ -55,11 +55,14 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			for(var i = con.y; i < con.y + con.height; i++) {
 				for(var j = con.x; j < con.x + con.width; j++) {
 					var index = this.get(j, i).index;
+					var pos = new Point(j * tw, i * th);
+					pos = pos.add(position);
+					var p = jo.game.cam.toScreen(pos);
 					if(index >= 0){
-						var pos = new Point(j * tw, i * th);
-						pos = pos.add(position);
-						var p = jo.game.cam.toScreen(pos);
-						this.tileSet.draw({tile: index}, p, surface);	
+						this.tileSet.draw({tile: index}, p, surface);						
+					}
+					if(options.grid){
+						surface.rect({fill:0, stroke: '#ccc'}, p, tw,th);
 					}
 				}
 			}

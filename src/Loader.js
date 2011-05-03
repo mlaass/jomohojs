@@ -186,8 +186,11 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 		 */
 		onLoad : function(event) {
 			this.loaded += 1;
-			this.progress = jo.mapto(this.loaded, 0, this.fileCount, 0, 1);
-			jo.log(event.target.name + ' ..loaded  ' + this.loaded + ' / ' + this.fileCount);
+			if(this.loaded <= this.fileCount){
+				this.progress = jo.mapto(this.loaded, 0, this.fileCount, 0, 1);
+				jo.log(event.target.name + ' ..loaded  ' + this.loaded + ' / ' + this.fileCount);
+			}
+
 		},
 		
 		mute: function(){

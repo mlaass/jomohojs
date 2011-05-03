@@ -76,7 +76,7 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 				this.canvas.style.zIndex = 1;
 				
 			}
-			this.fps = options.fps | 30;
+			this.fps = options.fps || 30;
 		
 			this.fixedTime = options.fixedTime | true;
 			

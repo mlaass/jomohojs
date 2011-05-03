@@ -15,7 +15,7 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 								input.LEFT,
 								input.RIGHT];
 			jo.files = new jo.Loader();
-			//jo.files.folder= '/';
+			this.freeze = false;
 			jo.game = this;
 		},
 		loading: function(){
@@ -51,7 +51,9 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 			this.draw();
 		},
 		update: function(t){
-			this._super(t);
+			if(!this.freeze){
+				this._super(t);
+			}
 			jo.input.update();
 			this._update(t);
 		},
