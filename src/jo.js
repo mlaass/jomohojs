@@ -119,6 +119,22 @@ define(['./Class', './Mersenne'],function(Class, Mersenne){
 			}
 			return r;		
 		},
+		/**
+		 * returns a filtered array, does not change array
+		 * the filter works by returning true for those elements that should be in the filtered array
+		 * @param array
+		 * @param filter
+		 * @returns
+		 */
+		filter: function(array, filter){
+			var ret =[];
+			for(var i in array){
+				if(filter(array[i])){
+					ret.push(array[i]);
+				}
+			}
+			return ret;
+		},
 		
 		clr: {
 			white: 'rgb(255,255,255)',

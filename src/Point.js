@@ -240,5 +240,6 @@ define([ './jo', './Class' ], function(jo, Class) {
 		}
 	});
 	jo.pzero = function(){ return new jo.Point(0,0);};
+	jo.point = function(x,y){return new jo.Point(x,y);};
 	return jo.Point;
 });
