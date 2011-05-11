@@ -81,6 +81,10 @@ define([ './jo'], function(jo) {
 			var copy = this.copy();
 			this.width= width;
 			this.height = height;
+			this.data=[];
+			for( var i = 0; i < this.width * this.height; i++) {
+				this.data.push(0);
+			}
 			if(typeof clear !== 'undefined'){
 				this.clearTo(clear);
 			}

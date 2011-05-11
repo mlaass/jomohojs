@@ -90,9 +90,9 @@ define( function(){
     		adaptAtoB(obj, this, recursive, func);
     	}    	    	
     };
-   
+    
     return Class;
   };
-  
+
   return Class;
 });

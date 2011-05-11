@@ -11,6 +11,7 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 		 * @lends jo.Tilemap
 		 */	
 		{
+			joObject: 'TileMap',
 		/**
 		 * @constructs
 		 * @param options
@@ -114,8 +115,8 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			con.x = Math.floor(Math.max(0, tileOff.x));
 			con.y = Math.floor(Math.max(0, tileOff.y));
 
-			con.width = Math.min(Math.ceil(frame.width / tw + 1), this.width - tileOff.x),
-			con.height = Math.min(Math.ceil(frame.height / th + 1), this.height - tileOff.y);	
+			con.width = Math.min(Math.ceil(frame.width / tw + 1), this.width - con.x),
+			con.height = Math.min(Math.ceil(frame.height / th + 1), this.height - con.y);	
 			
 			return con;
 		},
@@ -123,7 +124,7 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			var con = this.convertFrame(frame);
 			for ( var i = con.x; i < con.x + con.width; i++) {
 				for ( var j = con.y; j < con.y + con.height; j++) {
-					return fn(i, j);
+						fn(i, j, this.getTile(i,j));
 				}
 			}
 		}
