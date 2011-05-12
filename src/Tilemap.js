@@ -127,6 +127,15 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 						fn(i, j, this.getTile(i,j));
 				}
 			}
+		},
+		find: function(index){
+			for(var i=0; i< this.width; i++){
+				for(var j =0; j< this.height; j++){
+					if(this.get(i,j).index==index){
+						return this.getTile(i,j);
+					}
+				}
+			}
 		}
 	});
 	return jo.Tilemap;
