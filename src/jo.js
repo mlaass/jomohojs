@@ -14,6 +14,7 @@ define(['./Class', './Mersenne'],function(Class, Mersenne){
 		Class: Class,
 		
 		Mersenne: Mersenne,
+		random: new Mersenne(),
 		
 		/**
 		 * logs into the console if available

@@ -34,6 +34,9 @@ define(['./jo', './Point'], function(jo, Point){
 				pointCircle: function(point, circle){
 					return Math.pow(point.x-circle.x, 2)+Math.pow(point.y-circle.y, 2) <= Math.pow(circle.radius,2);
 				},
+				pointBox: function(p, b){
+					return this.boxBox({pos: p, width:0, height:0}, b);
+				},
 				boxBox: function(a, b){
 					var a_right = a.pos.x + a.width,
 						a_bottom = a.pos.y + a.height,
@@ -65,6 +68,7 @@ define(['./jo', './Point'], function(jo, Point){
 					return true;
 					
 				},
+				
 				lineLine: function(line1, line2){
 					
 				},

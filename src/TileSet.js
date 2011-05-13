@@ -27,6 +27,7 @@ define(['./jo',
 			this.height = height;
 			this.sprite = sprite;
 			this.tiles = this.readTiles(tiles);
+			this.solid=[];
 		},
 		/**
 		 * reads the tiles array
@@ -50,8 +51,17 @@ define(['./jo',
 			}
 			return tiles;
 		},
+		readTile: function(tile){
+			//A Tile can be an Animation	
+			if(typeof tile === 'object'){
+				tile = new Animation(tile, this.width, this.height, this.sprite);
+				
+			}else{//or just a single Frame.
+				tile = new Animation([{i: tile, t: 200}], this.width, this.height, this.sprite);
+			}
+		},
 		push: function(tile){
-			
+			this.tiles.push(this.readTile(tile));
 		},
 		/**
 		 * advances the tile animations

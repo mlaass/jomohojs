@@ -82,7 +82,7 @@ define([], function(){
 	
 		function addition32 (n1, n2) // emulates overflow of a c 32-bits unsiged integer variable, instead of the operator +. these both arguments must be non-negative integers expressible using unsigned 32 bits.
 		{
-			return unsigned32((n1 + n2) & 0xffffffff)
+			return unsigned32((n1 + n2) & 0xffffffff);
 		}
 	
 		function multiplication32 (n1, n2) // emulates overflow of a c 32-bits unsiged integer variable, instead of the operator *. these both arguments must be non-negative integers expressible using unsigned 32 bits.
@@ -198,7 +198,7 @@ define([], function(){
 		Mersenne.prototype.seed = function(s){
 			init_genrand(s);
 		};
-		Mersenne.prototype.random = function(a, b){
+		Mersenne.prototype.get = function(a, b){
 			if(typeof(a)==='undefined'){
 				return this.genrand_real3();
 			}
