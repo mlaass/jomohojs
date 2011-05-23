@@ -91,6 +91,5 @@ define([ './jo'], function(jo) {
 			this.blit(copy,0,0);
 		}
 	});
-
 	return jo.Grid;
 });
