@@ -22,9 +22,9 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			this._super(width, height);
 			
 			this.tileSet = tileSet;
-			this.clearTo({index : -1	});
+			this._clearTo({index : -1	});
 			
-			if(data){
+			if(data && data.length === this.data.length){
 				this.data = data;
 			}
 		},
@@ -33,6 +33,7 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 		 * @param ticks
 		 */
 		update : function(ticks) {
+			this._super(ticks);
 			this.tileSet.update(ticks);
 		},
 		/**
@@ -67,7 +68,7 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 					}
 				}
 			}
-			
+			this._super();
 		},
 		/**
 		 * return an object containing tile information

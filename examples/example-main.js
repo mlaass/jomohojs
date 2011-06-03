@@ -1,5 +1,5 @@
 
-define(['../src/jo', '../src/Game'], function(jo, Game){
+define(['../jo', '../Game'], function(jo, Game){
 	
 	//one global variable to rule them all very useful with the firebug console
 	$jo=jo;

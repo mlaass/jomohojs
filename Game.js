@@ -59,7 +59,7 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 		},
 		draw: function(){
 			this._draw();
-			this._super(jo.screen);
+			this._super({}, jo.pzero, jo.screen);
 		},
 		OnUpdate: function(fn){
 			this._update = fn;

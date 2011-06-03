@@ -3,10 +3,11 @@
  * and delivers methods of manipulation
  */
 
-define([ './jo'], function(jo) {
+define([ './jo', './Object'], function(jo, Object) {
 
-	jo.Grid = jo.Class.extend({
+	jo.Grid = jo.Object.extend({
 		init : function(width, height) {
+			this._super.apply(this, arguments);
 			this.width = width;
 			this.height = height;
 			this.data = [];
@@ -14,24 +15,24 @@ define([ './jo'], function(jo) {
 				this.data.push(0);
 			}
 		},
-		clearTo : function(value) {
+		_clearTo : function(value) {
 			for ( var i = 0; i < this.width * this.height; i++) {
 				this.data[i] = value;
 			}
 		},
-		blit : function(grid, x, y, width, height) {
+		_blit : function(grid, x, y, width, height) {
 			if (typeof width === 'undefined') {
-				width = grid.width;
+				var width = grid.width;
 			}
 			if (typeof height === 'undefined') {
-				height = grid.height;
+				var height = grid.height;
 			}
 
 			width = Math.min(width, this.width - x);
 			height = Math.min(height, this.height - y);
 			for (var i = 0; i < height; i++) {
 				for (var j = 0; j < width; j++) {
-					this.put(x+j, y+i, grid.get(j,i));
+					this._put(x+j, y+i, grid.get(j,i));
 				}
 			}
 		},
@@ -42,12 +43,15 @@ define([ './jo'], function(jo) {
 			jo.log('grid.get out of bounds: ' + x + ' | ' + y);
 		},
 		
-		put : function(x, y, value) {
+		_put : function(x, y, value) {
 			if(x >= 0 && x < this.width && y >= 0 && y < this.height){
 				this.data[y * this.width + x] = value;
 			}			
 		},
-		copy: function(frame){
+		put : function(x, y, value) {
+			this._put(x, y, value);
+		},
+		_copy: function(frame){
 			if(typeof frame === 'undefined'){
 				frame= {};
 			}
@@ -71,14 +75,14 @@ define([ './jo'], function(jo) {
 			return copy;
 		},
 		shift: function(x, y, clear){
-			var copy = this.copy();
+			var copy = this._copy();
 			if(typeof clear !== 'undefined'){
-				this.clearTo(clear);
+				this._clearTo(clear);
 			}
-			this.blit(copy,x,y);
+			this._blit(copy,x,y);
 		}, 
 		resize: function(width, height, clear){
-			var copy = this.copy();
+			var copy = this._copy();
 			this.width= width;
 			this.height = height;
 			this.data=[];
@@ -86,9 +90,9 @@ define([ './jo'], function(jo) {
 				this.data.push(0);
 			}
 			if(typeof clear !== 'undefined'){
-				this.clearTo(clear);
+				this._clearTo(clear);
 			}
-			this.blit(copy,0,0);
+			this._blit(copy,0,0);
 		}
 	});
 	return jo.Grid;
