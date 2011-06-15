@@ -6,7 +6,7 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 	 * @class holds Level data 
 	 * @augments jo.Grid
 	 */
-	jo.Tilemap = Grid.extend(
+	jo.TileMap = Grid.extend(
 		/**
 		 * @lends jo.Tilemap
 		 */	
@@ -139,5 +139,5 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			}
 		}
 	});
-	return jo.Tilemap;
+	return jo.TileMap;
 });

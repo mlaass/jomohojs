@@ -84,6 +84,24 @@ define(['./jo',
 				options.tile = 0;
 			}
 			this.tiles[options.tile].draw(options, position, surface);
+		},
+		getCss: function(t){
+			var fr,
+			self=this,
+			css = function(t){
+				fr= self.tiles[t].getDrawFrame(0);
+				return 'background: url('+self.sprite.src+') -'+fr.x+'px -'+fr.y+'px;'
+						+'width: '+fr.width+'px ; height: '+fr.height+'px;';
+			};
+			if(t){
+				return css(t);
+			}else{
+				var ar=[];
+				for(var i in this.tiles){
+					ar.push(css(i));
+				}
+				return ar;
+			}
 		}
 	});
 	return jo.TileSet;

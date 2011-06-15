@@ -41,7 +41,7 @@ define(['./jo'], function(jo){
 				for(var i=0; i< frames.length; i++){
 					frames[i] = typeof frames[i] === 'object'? frames[i] : {i: i, t: frames[i]};
 							
-					frames[i].drawFrame = this.getDrawFrame(frames[i].i);
+					frames[i].drawFrame = this.calcFrame(frames[i].i);
 					
 				}
 			}
@@ -91,7 +91,8 @@ define(['./jo'], function(jo){
 		 * @returns {Object}
 		 * @see jo.Sprite.draw
 		 */
-		getDrawFrame: function(frame){
+		calcFrame: function(frame){
+
 			var cols = Math.floor(this.sprite.width / this.width);
 			return {
 				x: this.xoff + ((frame % cols)) * this.width,
@@ -99,6 +100,12 @@ define(['./jo'], function(jo){
 				width: this.width, 
 				height: this.height				
 			};
+		},
+		getDrawFrame: function(frame){
+			if(!frame){
+				frame=0;
+			}
+			return this.frames[frame].drawFrame;
 		}
 	});
 	return jo.Animation;

@@ -18,6 +18,7 @@ define([ './jo', './Point' ], function(jo, Point) {
 		 * @methodOf jo.web.Sprite
 		 */
 		init : function(src, loadCall) {
+			this.src = src;
 			this.img = new Image();
 			this.img.src = src;
 			this.loadCall = loadCall;
