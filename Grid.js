@@ -6,10 +6,15 @@
 define([ './jo', './Object'], function(jo, Object) {
 
 	jo.Grid = jo.Object.extend({
-		init : function(width, height) {
-			this._super.apply(this, arguments);
-			this.width = width;
-			this.height = height;
+		/**
+		 * 
+		 * @param opt
+		 * 	width and height needed
+		 */
+		init : function(opt) {
+			this._super(opt);
+			this.width = opt.width || 16;
+			this.height = opt.height ||16;
 			this.data = [];
 			for( var i = 0; i < this.width * this.height; i++) {
 				this.data.push(0);

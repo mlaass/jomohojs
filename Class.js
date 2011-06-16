@@ -76,13 +76,19 @@ define( function(){
      */
     Class.prototype.adapt = function(obj, recursive, func){    	
     	var adaptAtoB = function(a, b, recursive, func){
-    		for ( var name in b){
-        		if(recursive == true && typeof a[name] === 'object'){ 
+    		for ( var name in a){
+    			if(recursive === true && a[name] instanceof Array){
+    				b[name] = [];
+    				for(var i in a[name]){
+    					b[name].push(a[name][i]);
+    					adaptAtoB(b[name][i], a[name][i], recursive, func);
+    				}
+    			}else if(recursive === true && typeof a[name] === 'object'){ 
         			b[name]={};
-        			adaptAtoB(a[name], b[name]);
+        			adaptAtoB(a[name], b[name], recursive, func);
         		}else if( func === true || typeof a[name] !== 'function' ){
         			b[name] = a[name];
-        		}       		
+        		}      		
         	}
     	};
     	

@@ -7,26 +7,26 @@ define(['./jo',
 	/**
 	 * @class takes care of Tiles, they can be single frames or looping animations
 	 */
-	jo.TileSet = jo.Class.extend(
+	jo.TileSet = jo.Object.extend(
 		/**
 		 * @lends jo.TileSet.prototype
 		 */
 		{
 		tiles: [],
 		/**
-		 * @constructs
-		 * takes an array of tile definitions can be indexes or or animation arrays
-		 * @param tiles
+		 * @constructs 
+		 * @param tiles an array of tile definitions can be indexes or or animation arrays
 		 * @param width
 		 * @param height
 		 * @param sprite
 		 * @see jo.Animation
 		 */
-		init: function(tiles, width, height, sprite){
-			this.width = width;
-			this.height = height;
-			this.sprite = sprite;
-			this.tiles = this.readTiles(tiles);
+		init: function(opt){
+			this._super(opt);
+			this.width = opt.width;
+			this.height = opt.height;
+			this.sprite = opt.sprite;
+			this.tiles = this.readTiles(opt.tiles);
 			this.solid=[];
 		},
 		/**

@@ -15,17 +15,19 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 		/**
 		 * @constructs
 		 * @param options
-		 * @param width
-		 * @param height
+		 *  width
+		 *  height
+		 *  tileSet
+		 *  data
 		 */
-		init : function(tileSet, width, height, data) {
-			this._super(width, height);
+		init : function(opt) {
+			this._super(opt);
 			
-			this.tileSet = tileSet;
-			this._clearTo({index : -1	});
+			this.tileSet = opt.tileSet;
+			this._clearTo({index: -1});
 			
-			if(data && data.length === this.data.length){
-				this.data = data;
+			if(opt.data && opt.data.length === this.data.length){
+				this.data = opt.data;
 			}
 		},
 		/**

@@ -1,7 +1,5 @@
 
-
-define(['./jo', './Class' ], function(jo, Class){
-	
+define(['./jo', './Class' ], function(jo, Class){	
 	jo.Object = jo.Class.extend(
 		/**
 		 * @lends jo.Object.prototype
@@ -12,16 +10,13 @@ define(['./jo', './Class' ], function(jo, Class){
 		 * must be the official name without the 'jo.'
 		 */
 		joObject : 'Object',
-		/**
-		 * an object can have sub objects
-		 */
-		objects: {},
 		
 		/**
 		 * @constructor
+		 * all jo Objects take just one options argumtn with the constructor for easy serialisation
 		 */
-		init : function(){
-			this.arguments = arguments;
+		init : function(options){
+			this.options = options;
 			this.obj = {};
 			this.joObject = this.joObject;
 			this.call={};
@@ -51,13 +46,13 @@ define(['./jo', './Class' ], function(jo, Class){
 			}
 		},
 		draw: function(options, position, surface){
-			for(obj in this.obj){
-				this.obj[obj].draw(options, position, surface);
+			for(var i in this.obj){
+				this.obj[i].draw(options, position, surface);
 			}
 		},
 		update: function(time){
-			for(obj in this.objs){
-				this.obj[obj].update(time);
+			for(var i in this.obj){
+				this.obj[i].update(time);
 			}
 		},
 		addObject: function(name, obj){
@@ -65,7 +60,6 @@ define(['./jo', './Class' ], function(jo, Class){
 				obj._parent = this;
 				obj._name = name;
 				this.obj[name] = obj;
-				
 			}else {
 				this.obj[name].addObject(name, obj);
 			}
@@ -85,35 +79,24 @@ define(['./jo', './Class' ], function(jo, Class){
 				this.obj[i]._name = i;
 				this.obj[i]._parent=this;
 			}
-			
 		}
 	});
 	jo.Object.replacer = function(key, value) {
 		if(key === '_parent'){
 			value = key;
-		}
-		else if(key === 'obj'){
-	    	return  JSON.stringify(value, joObject.replacer);
-	    }
-	    
+		}	    
 	    return value;
 	};
-	jo.Object.revive = function(key, value){		
-		var apply2= function(){
-		    function tempCtor() {};
-		    return function(ctor, args){
-		        tempCtor.prototype = ctor.prototype;
-		        var instance = new tempCtor();
-		        ctor.apply(instance,args);
-		        return instance;
-		    };
-		}();
-		if(typeof value !== 'undefined' && typeof value.joObject !== 'undefined'){			
-			var obj = apply2(jo[value.joObject], value.arguments);
-			value = obj;		
-			return obj;
+	jo.Object.revive = function(key, value){
+		var val = 0;
+		if(value && value.joObject ){
+			val = new jo[value.joObject](value.options);
+			val.adapt(value, true);
+			value = val;
+			jo.log(val);
+			return val;
 		}
-		if(typeof value!== 'undefined'){
+		if(value){
 	    	if(value.isPoint){
 	    		return (new jo.Point().copy(value));
 	    	}
@@ -123,6 +106,7 @@ define(['./jo', './Class' ], function(jo, Class){
 	jo.Object.parse = function(text){
 		var obj = JSON.parse(text, jo.Object.revive);
 		obj._postParse();
+		return obj;
 	};
-
+	return jo.Object;
 });

@@ -23,6 +23,7 @@ define([ './jo', './Point' ], function(jo, Point) {
 			this.img.src = src;
 			this.loadCall = loadCall;
 			this.img.onload = jo.bind(this.onLoad, this);
+			//this.joObject ='Sprite';
 		},
 		/**
 		 * @private
