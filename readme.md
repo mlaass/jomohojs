@@ -8,7 +8,7 @@ Jomoho comes with the following features:
 -   Easy fullscreen canvas
 -   Drawable Surfaces
 -   Html5 Audio abstraction
--   Preloading of sprites files and sound files
+-   Preloading of sprites, files and sound files
 -   Easy inheritance using Class.extend()
 -   Animations
 -   Asynchronous modules, using requirejs
