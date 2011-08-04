@@ -42,7 +42,7 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 				var src = this.files[i];
 				var type = src.substring(0, src.indexOf('/'));
 				if(typeof (folder) !== 'undefined'){
-					src = this.folder + '/' + src;
+					src = this.folder + src;
 				}				
 				if (type === 'sfx') {
 					this.loadSfx(src);
@@ -104,9 +104,11 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 				this.sfx[name] = new Audio(src);
 				this.sfx[name].load();
 				this.sfx[name].name = name;
+				this.sfx[name].volume=0;
+				this.sfx[name].play();
+				this.sfx[name].joType = 'sfx';
 				this.sfx[name].addEventListener('canplaythrough', jo.bind(this.onLoad, this), true);
 				
-				this.sfx[name].volume=0.8;
 				this.sfx[name].looping = function(loop) {
 					if (loop) {
 						this.addEventListener('ended', function() {
@@ -146,6 +148,9 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 				this.music[name].load();
 				this.music[name].name = name;
 				this.music[name].loop = true;
+				this.music[name].volume=0;
+				this.music[name].play();
+				this.music[name].joType = 'music';
 				this.music[name].addEventListener('canplaythrough',	jo.bind(this.onLoad, this), true);
 
 				this.music[name].looping = function(loop) {
@@ -162,7 +167,6 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 					this.pause();
 					this.currentTime = 0;
 				};
-				this.music[name].volume = 0.3;
 				this.music[name].looping(true);
 				this.music.setVolume=function(v){
 					for(i in this){
@@ -189,6 +193,14 @@ define([ './jo', './Sprite' ], function(jo, Sprite) {
 			if(this.loaded <= this.fileCount){
 				this.progress = jo.mapto(this.loaded, 0, this.fileCount, 0, 1);
 				jo.log(event.target.name + ' ..loaded  ' + this.loaded + ' / ' + this.fileCount);
+			}
+			if(event.target.joType==='music'){
+				event.target.volume=0.3;
+				event.target.stop();
+			}
+			if(event.target.joType==='sfx'){
+				event.target.volume=0.8;
+				event.target.stop();
 			}
 
 		},

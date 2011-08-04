@@ -13,13 +13,14 @@ define(['./jo', './Class' ], function(jo, Class){
 		
 		/**
 		 * @constructor
-		 * all jo Objects take just one options argumtn with the constructor for easy serialisation
+		 * all jo Objects take just one options argument with the constructor for easy serialisation
 		 */
 		init : function(options){
 			this.options = options;
 			this.obj = {};
 			this.joObject = this.joObject;
 			this.call={};
+			
 		},
 		hasCall: function(name){
 			return typeof this.call[name] === 'function';
@@ -56,7 +57,7 @@ define(['./jo', './Class' ], function(jo, Class){
 			}
 		},
 		addObject: function(name, obj){
-			if(typeof this.objects[name] === 'undefined'){
+			if(typeof this.obj[name] === 'undefined'){
 				obj._parent = this;
 				obj._name = name;
 				this.obj[name] = obj;
@@ -71,6 +72,10 @@ define(['./jo', './Class' ], function(jo, Class){
 			delete this.obj[name];
 			this.obj[name] = undefined;
 		},
+		removeAllObjects: function(){
+			this.obj = {};
+		},
+		
 		stringify: function(filter){
 			return JSON.stringify(this, filter || jo.Object.replacer);
 		},

@@ -234,8 +234,8 @@ define([ './jo', './Class' ], function(jo, Class) {
 			return this;
 		},
 		floor: function(){
-			this.x= Math.floor(this.x);
-			this.y= Math.floor(this.y);
+			this.x = Math.floor(this.x);
+			this.y = Math.floor(this.y);
 			return this;
 		}
 	});
