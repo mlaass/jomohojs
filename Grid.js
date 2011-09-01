@@ -12,6 +12,7 @@ define([ './jo', './Object'], function(jo, Object) {
 		 * 	width and height needed
 		 */
 		init : function(opt) {
+			opt = opt || {};
 			this._super(opt);
 			this.width = opt.width || 16;
 			this.height = opt.height ||16;
@@ -27,10 +28,10 @@ define([ './jo', './Object'], function(jo, Object) {
 		},
 		blit : function(grid, x, y, width, height) {
 			if (typeof width === 'undefined') {
-				var width = grid.width;
+				width = grid.width;
 			}
 			if (typeof height === 'undefined') {
-				var height = grid.height;
+				height = grid.height;
 			}
 
 			width = Math.min(width, this.width - x);

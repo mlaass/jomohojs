@@ -98,6 +98,9 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 				if(this.width !== view.width || this.height!==view.height){
 					this.canvas.height = this.height = view.height;
 					this.canvas.width = this.width = view.width;
+					if($){
+						$('#canvas-wrap').css(view);
+					}
 				}
 				
 			}
@@ -111,9 +114,9 @@ define([ './jo', './Surface', './Point'],function(jo, Surface, Point){
 			this.checkfull();
 			if(this.debug){
 				this.ctx.font = '10px monospace';
-				this.fill = 'white';
+				this.fill = '#00ff00';
 				this.stroke = 0;
-				this.text(null,{x: 5, y: 5}, 'debugmode fps: ' + this.realFps.toFixed(2) + ' ticks: ' + this.realTicks);
+				this.text({font: '12px monospace', fill : '#00ff00', stroke: 0},{x: 64, y: 8}, 'debugmode fps: ' + this.realFps.toFixed(2) + ' ticks: ' + this.realTicks);
 			}	
 			this.frames += 1;
 			this.realTicks = this.time - this.lastTime;
