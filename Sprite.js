@@ -107,6 +107,8 @@ define([ './jo', './Point' ], function(jo, Point) {
 					}
 				}				
 			}
+			x = ~~ (x+0.5);
+			y = ~~ (y+0.5);
 			surface.ctx.drawImage(this.img, x, y, srcW, srcH, 0, 0, width, height);
 			surface.ctx.restore();
 		}

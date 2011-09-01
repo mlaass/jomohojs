@@ -159,6 +159,10 @@ define(['./jo', './Point'], function(jo, Point){
 				return;
 			}
 			var code = event.type === 'keydown' ? event.keyCode : (event.button == 2 ? this.MOUSE2 : this.MOUSE1);
+			if(code ===this.MOUSE1){
+				this.mouseMove(event);
+				this.update(0);
+			}
 			if(code>= 0){
 				this.newKey[code] = true;
 			}

@@ -100,6 +100,7 @@ define(['./jo',
 				for(var i in this.tiles){
 					ar.push(css(i));
 				}
+				
 				return ar;
 			}
 		}
