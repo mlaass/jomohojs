@@ -1,22 +1,28 @@
-
-
-define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Object, Screen, input, Loader){
+define(['./jo', './Object', './Screen', './input', './Loader', './Camera'], function(jo, Object, Screen, input, Loader, Cam){
 
 	jo.Game = jo.Object.extend({		
 		init: function(options){
 			this._super(options);
-			
-			jo.screen = new jo.Screen(options);
+			if(!jo.screen){
+				jo.screen = new jo.Screen(options);
+			}
 			input.setup();
 			input.reserved = [	input.MOUSE1,
 								input.MOUSE2,
 								input.UP,
 								input.DOWN,
 								input.LEFT,
-								input.RIGHT];
-			jo.files = new jo.Loader();
+								input.RIGHT,
+								input.CTRL,
+								input.ALT,
+								input.SHIFT,
+								input.TAB,
+								input.SPACE,
+								input.ENTER,
+								input.WHEEL_UP];
 			this.freeze = false;
-			jo.game = this;
+			this.cam = new Cam(0,0);
+			jo.files = new jo.Loader();
 		},
 		loading: function(){
 			jo.screen.clear();		
@@ -27,7 +33,7 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 						{x: jo.screen.width/4, y: jo.screen.height/2 -20},
 						jo.mapto(jo.files.progress, 0, 1, 0, jo.screen.width/2), 40 );
 			
-			jo.screen.text({align: 'center', fill: jo.clr.black, stroke: 0},
+			jo.screen.text({align: 'center', fill: jo.clr.white, stroke: 0},
 				       new jo.Point(jo.screen.width/2, jo.screen.height/2), 'Loading...');
 
 			if(jo.files.progress >= 1){
@@ -35,10 +41,26 @@ define(['./jo', './Object', './Screen', './input', './Loader'], function(jo, Obj
 				this._ready();
 			}			
 		},
-		setup: function(fn){
+		setup: function(fn, hold){
 			this._setup = fn;
-			return fn();
+			if(!hold){
+				return fn();
+			}			
 		},
+		runSetup: function(){
+			if(typeof this._setup === 'function'){
+				return this._setup();
+			}
+		},
+		runReady: function(){
+			if(typeof this._ready === 'function'){
+				this._ready();
+			}
+			this.run();
+		},
+		run: function(){
+			jo.screen.draw(jo.bind(this.loop, this));
+		},		
 		load: function(files, folder){
 			jo.files.load(files, folder);
 			jo.screen.draw(jo.bind(this.loading, this));

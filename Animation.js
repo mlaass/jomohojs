@@ -16,6 +16,7 @@ define(['./jo'], function(jo){
 		 * @methodOf jo.Animation
 		 */
 		init: function(frames, width, height, sprite, startCallback, finishCallback){
+			console.log(frames);
 			this.sprite = (sprite) ? sprite : null;
 			this.width = (width) ? width : 0;
 			this.height = (height) ? height : 0;
@@ -27,6 +28,7 @@ define(['./jo'], function(jo){
 			this.startCallback = startCallback;
 			this.finishCallback = finishCallback;
 			this.start = true;
+			console.log(this.frames);
 		},
 		/**
 		 * reads and transforms an array of frames
@@ -40,9 +42,8 @@ define(['./jo'], function(jo){
 			if(typeof frames.length !== 'undefined'){
 				for(var i=0; i< frames.length; i++){
 					frames[i] = typeof frames[i] === 'object'? frames[i] : {i: i, t: frames[i]};
-							
-					frames[i].drawFrame = this.calcFrame(frames[i].i);
-					
+						
+					frames[i].drawFrame = this.calcFrame(frames[i].i);					
 				}
 			}
 			return frames;

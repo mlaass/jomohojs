@@ -22,12 +22,15 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 		 */
 		init : function(opt) {
 			this._super(opt);
-			
+			this.name =  opt.name;
 			this.tileSet = opt.tileSet;
-			this._clearTo({index: -1});
-			
+			this.clearTo({index: -1});
+			if(typeof opt.data === 'string'){
+				opt.data = JSON.parse(opt.data);
+			}
 			if(opt.data && opt.data.length === this.data.length){
 				this.data = opt.data;
+				jo.log('successful data acquisition');
 			}
 		},
 		/**
@@ -49,9 +52,11 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 			var tw = this.tileSet.width,
 				th = this.tileSet.height;
 			
-			var frame = {x: jo.game.cam.x, y: jo.game.cam.y, width: surface.width, height: surface.height};
-			if(typeof options.frame !== 'undefined'){
+			var frame = {x: 0, y: 0, width: surface.width, height: surface.height};
+			if(options && typeof options.frame !== 'undefined'){
 				frame = options.frame;
+			}else if(options && options.cam){
+				frame = {x: options.cam.x, y: options.cam.y, width: surface.width, height: surface.height};
 			}
 			
 			var con = this.convertFrame(frame);
@@ -61,7 +66,11 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 					var index = this.get(j, i).index;
 					var pos = new Point(j * tw, i * th);
 					pos = pos.add(position);
-					var p = jo.game.cam.toScreen(pos);
+					var p = pos;
+					if(options && options.cam){
+						p = options.cam.toScreen(pos);
+					}
+					
 					if(index >= 0){
 						this.tileSet.draw({tile: index}, p, surface);						
 					}
@@ -139,6 +148,7 @@ define([ './jo', './Grid', './Point', './Tile', './TileSet', './Camera' ],
 					}
 				}
 			}
+			return null;
 		}
 	});
 	return jo.TileMap;

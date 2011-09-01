@@ -16,22 +16,26 @@ define(['./jo','./Point'],
 			if(typeof p =='undefined'){
 				return this.neg();
 			}
-			return p.minus(this);
+			return (p.minus(this)).floor();
 		},
 		toWorld: function(p){
 			if(typeof p =='undefined'){
 				return this;
 			}
-			return p.plus(this);
+			return (p.plus(this)).floor();
 		},
 
-		toMap: function(p){
-			if(typeof p =='undefined'){
+		toMap: function(p, tilesize){
+			if(typeof p === 'undefined'){
 				return null;
 			}
-			var p= this.toWorld(p);
-			p.x/=jo.game.map.tileSet.width;
-			p.y/=jo.game.map.tileSet.height;
+			if(! tilesize){
+				tilesize = 64;
+			}
+			var tw = th = tilesize;
+			p = this.toWorld(p);
+			p.x/=tw;
+			p.y/=th;
 			return p.floor();
 		},
 		parrallax: function(val, width, height){
@@ -39,6 +43,9 @@ define(['./jo','./Point'],
 			para.x = para.x % width;
 			para.y = para.y % height;
 			return para.negate();
+		},
+		snap: function(amount){
+			
 		}
 	});
 	return jo.Camera;
