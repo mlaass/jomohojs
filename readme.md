@@ -1,10 +1,12 @@
-Jomoho JS Game Library
-======================
+JomohoJS Game Engine
+====================
 
-A JavaScript Library that tries to make it easy and straight forward to develop 2d games in html5.
-It tries to achieve that goal by automating and simplyfing as much as possible while still giving fine grained control.
-JomohoJs comes with its own level editor and a comprehensive library of game related functionality 
-including comes with the following features:
+The easy and straight forward way to do 2D games in html5.
+JomohoJs comes with its own level editor tagather (http://github.com/jomoho/togather2) and a comprehensive library of game related functionality 
+By automating and simplyfing as much as possible while still giving fine grained control,
+JomohoJs will make your development a fun and rewarding process.
+
+It comes comes with the following features:
 
 -   Fixed or dynamic framerate
 -   Easy fullscreen canvas
