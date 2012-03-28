@@ -1,10 +1,9 @@
 JomohoJS Game Engine
 ====================
 
-The easy and straight forward way to do 2D games in html5.
-JomohoJs comes with its own collaborative level editor togather (http://github.com/jomoho/togather2) and a comprehensive library of game related functionality 
-By automating and simplyfing as much as possible while still giving fine grained control,
-JomohoJs will make your development a fun and rewarding process.
+The easy and straight forward way to do 2D games in html5. 
+JomohoJs comes with its own collaborative level editor togather (http://github.com/jomoho/togather2) and a comprehensive library of game related functionality. 
+JomohoJs will make your development a fun and rewarding process, by automating and simplyfing as much as possible while still giving fine grained control. 
 
 It comes comes with the following features:
 
