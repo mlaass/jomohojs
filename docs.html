@@ -265,7 +265,8 @@ return jo.Animation;</code></pre>
 </td>
 </tr><tr class="filename"><td><h2 id="Behaviour.js"><a href="#">Behaviour</a></h2></td><td>Behaviour.js</td></tr><tr class="code">
 <td class="docs">
-<p>define(['jo', 'Class'],function(jo, Class){</p>
+<p>define(['jo', 'Class'],function(jo, Class){
+</p>
 
 <pre><code>jo.Behaviour = Class.extend({</code></pre>
 
@@ -276,32 +277,38 @@ return jo.Animation;</code></pre>
 			this.joObject = this.joObject;
 			this.arguments = arguments;
 		},		
-		setup: function(obj){</p>
+		setup: function(obj){
+</p>
 
 <pre><code>	},</code></pre>
 
 <p>
-		update: function(time){</p>
+		update: function(time){
+</p>
 
 <pre><code>	},</code></pre>
 
 <p>
-		postUpdate: function(time){</p>
+		postUpdate: function(time){
+</p>
 
 <pre><code>	},</code></pre>
 
 <p>
-		draw: function(opt, pos, srf){</p>
+		draw: function(opt, pos, srf){
+</p>
 
 <pre><code>	},</code></pre>
 
 <p>
-		postDraw: function(opt, pos, srf){</p>
+		postDraw: function(opt, pos, srf){
+</p>
 
 <pre><code>	}</code></pre>
 
 <p>
-	});</p>
+	});
+</p>
 
 <pre><code>return jo.Behaviour;</code></pre>
 
@@ -486,7 +493,8 @@ Class, featuring inheritance</li></ul>
 </td>
 </tr><tr class="filename"><td><h2 id="Entity.js"><a href="#">Entity</a></h2></td><td>Entity.js</td></tr><tr class="code">
 <td class="docs">
-<p>define(['jo', 'Object', 'Behaviour'], function(jo, Object, Behaviour){</p>
+<p>define(['jo', 'Object', 'Behaviour'], function(jo, Object, Behaviour){
+</p>
 
 <pre><code>jo.Entity = Object.extend({</code></pre>
 
@@ -3401,7 +3409,7 @@ return jo.TileMap;</code></pre>
 </tr><tr class="filename"><td><h2 id="jo.js"><a href="#">jo</a></h2></td><td>jo.js</td></tr><tr class="code">
 <td class="docs">
 <ul><li><p><strong>name</strong>: <em>jo</em></p></li><li><p><strong>namespace</strong>: <em>the</em>
-namespace of the the jomoho library</p></li></ul>
+namespace of the jomoho library</p></li></ul>
 </td>
 <td class="code">
 <pre><code><span class="variable">define</span>([<span class="string">'./Class'</span>, <span class="string">'./Mersenne'</span>],<span class="keyword">function</span>(<span class="class">Class</span>, <span class="class">Mersenne</span>){
