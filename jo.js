@@ -1,6 +1,6 @@
 /**
  * @name jo
- * @namespace the namespace of the the jomoho library
+ * @namespace the namespace of the jomoho library
  */
 
 define(['./Class', './Mersenne'],function(Class, Mersenne){
